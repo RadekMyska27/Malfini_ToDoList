@@ -1,8 +1,20 @@
 ﻿import { createContext, useContext } from "react";
+import { IToDoTask } from "../services/models.ts";
 
-export interface IAppContext {}
+export interface IAppContext {
+  todoTasks: IToDoTask[];
+  taskError?: string;
 
-export const AppContext = createContext<IAppContext>({});
+  sendTask: (task: string, description?: string) => void;
+  setTaskError: (error?: string) => void;
+}
+
+export const AppContext = createContext<IAppContext>({
+  taskError: undefined,
+  todoTasks: [],
+  sendTask: () => {},
+  setTaskError: () => {},
+});
 
 export const useAppContext = (): IAppContext => {
   const context = useContext(AppContext);

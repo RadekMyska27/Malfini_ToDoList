@@ -4,6 +4,7 @@ import {
   AddTaskTitle,
   IconSize,
   TaskDescription,
+  TaskMandatory,
 } from "../../constants";
 import { IoMdAddCircle } from "react-icons/io";
 import { useState } from "react";
@@ -15,33 +16,47 @@ const AddTaskSection = (data: IAddTaskSectionData) => {
   const { setTaskError } = useAppContext();
 
   const [task, setTask] = useState("");
-  const [description, setDescription] = useState<string | undefined>(undefined);
+  const [description, setDescription] = useState<string | undefined>("");
 
   const setTaskHandle = (task: string) => {
     if (task === "") {
-      setTaskError();
+      setTaskError(TaskMandatory);
       return;
     }
 
+    setTaskError(undefined);
     setTask(task);
+  };
+
+  const clearInputs = () => {
+    setTask("");
+    setDescription("");
   };
 
   return (
     <Flex gap="md" justify="flex-start" align="flex-start" direction="column">
       <Group justify="flex-start">
-        <TaskInput setTask={setTaskHandle} />
-        <TaskDescriptionInput setDescription={setDescription} />
+        <TaskInput setTask={setTaskHandle} task={task} />
+        <TaskDescriptionInput
+          setDescription={setDescription}
+          description={description}
+        />
       </Group>
-      <AddTaskButton task={task} description={description} />
+      <AddTaskButton
+        task={task}
+        description={description}
+        clearInputs={clearInputs}
+      />
     </Flex>
   );
 };
 
-const TaskInput = (data: { setTask: (task: string) => void }) => {
+const TaskInput = (data: { setTask: (task: string) => void; task: string }) => {
   const { taskError } = useAppContext();
 
   return (
     <TextInput
+      value={data.task}
       label={AddTaskTitle}
       withAsterisk
       onChange={(event) => data.setTask(event.currentTarget.value)}
@@ -52,20 +67,38 @@ const TaskInput = (data: { setTask: (task: string) => void }) => {
 
 const TaskDescriptionInput = (data: {
   setDescription: (description: string) => void;
+  description?: string;
 }) => {
   return (
     <TextInput
+      value={data.description}
       label={TaskDescription}
       onChange={(event) => data.setDescription(event.currentTarget.value)}
     />
   );
 };
 
-const AddTaskButton = (data: { task: string; description?: string }) => {
-  const { sendTask } = useAppContext();
+const AddTaskButton = (data: {
+  task: string;
+  description?: string;
+  clearInputs: () => void;
+}) => {
+  const { sendTask, taskError, setTaskError } = useAppContext();
 
   return (
-    <Button leftSection={<IoMdAddCircle size={IconSize} />} onClick={sendTask}>
+    <Button
+      leftSection={<IoMdAddCircle size={IconSize} />}
+      onClick={() => {
+        if (data.task === "") {
+          setTaskError(TaskMandatory);
+          return;
+        }
+
+        sendTask(data.task, data.description);
+        data.clearInputs();
+      }}
+      disabled={taskError !== undefined}
+    >
       {AddButtonLabel}
     </Button>
   );
