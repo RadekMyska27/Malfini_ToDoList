@@ -6,3 +6,7 @@
     width: 100%;
     display: block;
 }
+
+.accordionControl {
+    padding-left: 2vw;
+}

@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 export interface IHeaderWithAddButtonData {}
 
-export const HeaderWithAddButton = (data: IHeaderWithAddButtonData) => {
+const HeaderWithAddButton = (data: IHeaderWithAddButtonData) => {
   return (
     <div className={styles.headerWithAddButton}>
       <Flex justify="flex-start" align="flex-start" direction="column" gap="xl">
@@ -18,3 +18,5 @@ export const HeaderWithAddButton = (data: IHeaderWithAddButtonData) => {
     </div>
   );
 };
+
+export default HeaderWithAddButton;

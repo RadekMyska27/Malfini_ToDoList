@@ -1,7 +1,7 @@
 ﻿import { Flex } from "@mantine/core";
 import styles from "./styles.module.css";
-import { HeaderWithAddButton } from "../components";
-import { ToDosList } from "../components/toDosList/toDosList.tsx";
+import ToDosList from "../components/toDosList/toDosList.tsx";
+import HeaderWithAddButton from "../components/headerWithAddButton/headerWithAddButton.tsx";
 
 export interface ITodoListData {}
 
