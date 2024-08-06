@@ -1,0 +1,12 @@
+﻿.todoList {
+    width: 100%;
+}
+
+.task {
+    width: 100%;
+    display: block;
+}
+
+.accordionControl {
+    padding-left: 2vw;
+}
