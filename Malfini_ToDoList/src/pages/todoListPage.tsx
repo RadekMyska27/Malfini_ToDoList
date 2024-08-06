@@ -1,11 +1,11 @@
 ﻿import { Center, Flex } from "@mantine/core";
 import styles from "./styles.module.css";
 import ToDosList from "../components/toDosList/toDosList.tsx";
-import HeaderWithAddButton from "../components/headerWithAddButton/headerWithAddButton.tsx";
+import AppHeader from "../components/headerWithAddButton/appHeader.tsx";
 
 export interface ITodoListData {}
 
-export const TodoListPage = (data: ITodoListData) => {
+const TodoListPage = () => {
   return (
     <Center>
       <Flex
@@ -16,9 +16,11 @@ export const TodoListPage = (data: ITodoListData) => {
         direction="column"
         wrap="nowrap"
       >
-        <HeaderWithAddButton />
+        <AppHeader />
         <ToDosList />
       </Flex>
     </Center>
   );
 };
+
+export default TodoListPage;

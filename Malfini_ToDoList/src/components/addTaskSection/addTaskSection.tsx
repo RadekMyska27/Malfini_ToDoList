@@ -1,18 +1,18 @@
-﻿import { Button, Flex, Group, TextInput } from "@mantine/core";
+﻿import { useState } from "react";
+import { IoMdAddCircle } from "react-icons/io";
+
+import { Button, Flex, Group, TextInput } from "@mantine/core";
+
+import { useAppContext } from "../../context/appContext.tsx";
 import {
   AddButtonLabel,
   AddTaskTitle,
   IconSize,
   TaskDescription,
   TaskMandatory,
-} from "../../constants";
-import { IoMdAddCircle } from "react-icons/io";
-import { useState } from "react";
-import { useAppContext } from "../../context/appContext.tsx";
+} from "../../constants/components.ts";
 
-export interface IAddTaskSectionData {}
-
-const AddTaskSection = (data: IAddTaskSectionData) => {
+const AddTaskSection = () => {
   const { setTaskError } = useAppContext();
 
   const [task, setTask] = useState("");

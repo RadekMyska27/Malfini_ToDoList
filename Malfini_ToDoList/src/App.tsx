@@ -1,7 +1,8 @@
 import "@mantine/core/styles.css";
-import { TodoListPage } from "./pages";
-import styles from "./App.module.css";
+
 import { AppContextProvider } from "./context/appContextProvider.tsx";
+import TodoListPage from "./pages/todoListPage.tsx";
+import styles from "./App.module.css";
 
 function App() {
   return (

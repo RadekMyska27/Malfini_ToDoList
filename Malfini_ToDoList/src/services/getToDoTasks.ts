@@ -11,7 +11,7 @@ const DummyTasks: IToDoTask[] = [
     id: 1,
     value: "Grocery Shopping",
     description: "Buy milk, bread, and eggs from the store",
-    isDone: true,
+    isDone: false,
   },
   {
     id: 2,

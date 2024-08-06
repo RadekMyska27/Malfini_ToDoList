@@ -1,36 +1,31 @@
 ﻿import { Accordion, Center, Checkbox } from "@mantine/core";
 
-import styles from "./styles.module.css";
 import { useAppContext } from "../../context/appContext.tsx";
 import { IToDoTask } from "../../services/models.ts";
+import styles from "./styles.module.css";
 
-export interface IToDosListData {}
-
-const ToDosList = (data: IToDosListData) => {
-  const { todoTasks } = useAppContext();
-
-  const items = todoTasks.map((item) => (
-    <Accordion.Item key={item.value} value={item.value}>
-      <AccordionControl todoTask={item} />
-      <AccordionPanel description={item.description} />
-    </Accordion.Item>
-  ));
-
+const ToDosList = () => {
   return (
     <Center className={styles.todoList}>
-      <Accordion
-        className={styles.task}
-        variant="separated"
-        loop={false}
-        multiple
-      >
-        {items}
+      <Accordion className={styles.task} variant="separated" multiple>
+        <TodoTasks />
       </Accordion>
     </Center>
   );
 };
 
 export default ToDosList;
+
+const TodoTasks = () => {
+  const { todoTasks } = useAppContext();
+
+  return todoTasks.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <AccordionControl todoTask={item} />
+      <AccordionPanel description={item.description} />
+    </Accordion.Item>
+  ));
+};
 
 const AccordionControl = (data: { todoTask: IToDoTask }) => {
   const { markTaskAsDone } = useAppContext();
