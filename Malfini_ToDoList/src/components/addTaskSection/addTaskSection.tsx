@@ -11,6 +11,7 @@ import {
   TaskDescription,
   TaskMandatory,
 } from "../../constants/components.ts";
+import styles from "./styles.module.css";
 
 const AddTaskSection = () => {
   const { setTaskError } = useAppContext();
@@ -34,8 +35,14 @@ const AddTaskSection = () => {
   };
 
   return (
-    <Flex gap="md" justify="flex-start" align="flex-start" direction="column">
-      <Group justify="flex-start">
+    <Flex
+      className={styles.addTaskSection}
+      gap="md"
+      justify="flex-start"
+      align="flex-start"
+      direction="column"
+    >
+      <Group className={styles.taskInputGroup} justify="space-between" grow>
         <TaskInput setTask={setTaskHandle} task={task} />
         <TaskDescriptionInput
           setDescription={setDescription}

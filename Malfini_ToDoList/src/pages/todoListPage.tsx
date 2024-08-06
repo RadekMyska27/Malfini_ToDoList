@@ -1,7 +1,8 @@
-﻿import { Center, Flex } from "@mantine/core";
+﻿import { Center, Flex, Space } from "@mantine/core";
 import styles from "./styles.module.css";
 import ToDosList from "../components/toDosList/toDosList.tsx";
 import AppHeader from "../components/headerWithAddButton/appHeader.tsx";
+import AddTaskSection from "../components/addTaskSection/addTaskSection.tsx";
 
 export interface ITodoListData {}
 
@@ -17,6 +18,8 @@ const TodoListPage = () => {
         wrap="nowrap"
       >
         <AppHeader />
+        <AddTaskSection />
+        <Space h="xs" />
         <ToDosList />
       </Flex>
     </Center>
