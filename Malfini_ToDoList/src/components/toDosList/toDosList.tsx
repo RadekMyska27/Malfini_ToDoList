@@ -2,6 +2,7 @@
 
 import styles from "./styles.module.css";
 import { useAppContext } from "../../context/appContext.tsx";
+import { IToDoTask } from "../../services/models.ts";
 
 export interface IToDosListData {}
 
@@ -10,7 +11,7 @@ const ToDosList = (data: IToDosListData) => {
 
   const items = todoTasks.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
-      <AccordionControl value={item.value} isDone={item.isDone} />
+      <AccordionControl todoTask={item} />
       <AccordionPanel description={item.description} />
     </Accordion.Item>
   ));
@@ -31,16 +32,19 @@ const ToDosList = (data: IToDosListData) => {
 
 export default ToDosList;
 
-const AccordionControl = (data: { value: string; isDone: boolean }) => {
+const AccordionControl = (data: { todoTask: IToDoTask }) => {
+  const { markTaskAsDone } = useAppContext();
+  const task = data.todoTask;
+
   return (
     <Center className={styles.accordionControl}>
       <Checkbox
-        checked={data.isDone}
+        checked={task.isDone}
         onChange={() => {
-          //TODO handler
+          markTaskAsDone(task.id);
         }}
       />
-      <Accordion.Control disabled={data.isDone}>{data.value}</Accordion.Control>
+      <Accordion.Control disabled={task.isDone}>{task.value}</Accordion.Control>
     </Center>
   );
 };

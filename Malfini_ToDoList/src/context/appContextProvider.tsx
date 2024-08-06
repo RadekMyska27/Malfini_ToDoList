@@ -28,11 +28,20 @@ export const AppContextProvider = (data: IAppContextProvider) => {
     });
   };
 
+  const markTaskAsDoneHandler = (id: number) => {
+    const updatedTodoTasks = todoTasks.map((todoTask) => {
+      return id === todoTask.id ? { ...todoTask, isDone: true } : todoTask;
+    });
+
+    setTodoTasks(updatedTodoTasks);
+  };
+
   const ctx: IAppContext = {
     todoTasks: todoTasks,
     taskError: taskError,
     setTaskError: setTaskError,
     sendTask: sendTaskHandler,
+    markTaskAsDone: markTaskAsDoneHandler,
   };
 
   return <AppContext.Provider value={ctx}>{data.children}</AppContext.Provider>;

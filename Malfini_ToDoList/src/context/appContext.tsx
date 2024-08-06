@@ -6,6 +6,7 @@ export interface IAppContext {
   taskError?: string;
 
   sendTask: (task: string, description?: string) => void;
+  markTaskAsDone: (id: number) => void;
   setTaskError: (error?: string) => void;
 }
 
@@ -13,6 +14,7 @@ export const AppContext = createContext<IAppContext>({
   taskError: undefined,
   todoTasks: [],
   sendTask: () => {},
+  markTaskAsDone: () => {},
   setTaskError: () => {},
 });
 
