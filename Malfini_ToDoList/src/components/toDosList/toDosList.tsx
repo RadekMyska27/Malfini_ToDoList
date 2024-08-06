@@ -44,6 +44,6 @@ const AccordionControl = (data: { todoTask: IToDoTask }) => {
   );
 };
 
-const AccordionPanel = (data: { description }) => {
+const AccordionPanel = (data: { description?: string }) => {
   return <Accordion.Panel>{data.description}</Accordion.Panel>;
 };
