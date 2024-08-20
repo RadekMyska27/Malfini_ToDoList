@@ -1,15 +1,15 @@
 import "@mantine/core/styles.css";
-
-import { AppContextProvider } from "./context/appContextProvider.tsx";
+import { Provider } from "react-redux";
 import TodoListPage from "./pages/todoListPage.tsx";
+import { store } from "./slices/store.ts";
 import styles from "./App.module.css";
 
 function App() {
   return (
     <div className={styles.fullViewport}>
-      <AppContextProvider>
+      <Provider store={store}>
         <TodoListPage />
-      </AppContextProvider>
+      </Provider>
     </div>
   );
 }

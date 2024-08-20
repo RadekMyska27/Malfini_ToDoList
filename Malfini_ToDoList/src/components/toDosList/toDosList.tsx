@@ -1,8 +1,9 @@
 ﻿import { Accordion, Center, Checkbox } from "@mantine/core";
-
-import { useAppContext } from "../../context/appContext.tsx";
 import { IToDoTask } from "../../services/models.ts";
 import styles from "./styles.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../slices/store.ts";
+import { markAsDone } from "../../slices/taskSlice.ts";
 
 const ToDosList = () => {
   return (
@@ -17,9 +18,9 @@ const ToDosList = () => {
 export default ToDosList;
 
 const TodoTasks = () => {
-  const { todoTasks } = useAppContext();
+  const state = useSelector((state: RootState) => state.task);
 
-  return todoTasks.map((item) => (
+  return state.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
       <AccordionControl todoTask={item} />
       <AccordionPanel description={item.description} />
@@ -28,7 +29,8 @@ const TodoTasks = () => {
 };
 
 const AccordionControl = (data: { todoTask: IToDoTask }) => {
-  const { markTaskAsDone } = useAppContext();
+  const dispatch = useDispatch();
+
   const task = data.todoTask;
 
   return (
@@ -36,7 +38,7 @@ const AccordionControl = (data: { todoTask: IToDoTask }) => {
       <Checkbox
         checked={task.isDone}
         onChange={() => {
-          markTaskAsDone(task.id);
+          dispatch(markAsDone(task));
         }}
       />
       <Accordion.Control disabled={task.isDone}>{task.value}</Accordion.Control>

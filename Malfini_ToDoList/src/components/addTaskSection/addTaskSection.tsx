@@ -1,31 +1,29 @@
 ﻿import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { IoMdAddCircle } from "react-icons/io";
 
 import { Button, Flex, Group, TextInput } from "@mantine/core";
-
-import { useAppContext } from "../../context/appContext.tsx";
 import {
   AddButtonLabel,
   AddTaskTitle,
   IconSize,
   TaskDescription,
-  TaskMandatory,
 } from "../../constants/components.ts";
 import styles from "./styles.module.css";
+import { add } from "../../slices/taskSlice.ts";
 
 const AddTaskSection = () => {
-  const { setTaskError } = useAppContext();
-
   const [task, setTask] = useState("");
   const [description, setDescription] = useState<string | undefined>("");
 
+  //TODO Error handeling
   const setTaskHandle = (task: string) => {
     if (task === "") {
-      setTaskError(TaskMandatory);
+      // setTaskError(TaskMandatory);
       return;
     }
 
-    setTaskError(undefined);
+    // setTaskError(undefined);
     setTask(task);
   };
 
@@ -59,15 +57,13 @@ const AddTaskSection = () => {
 };
 
 const TaskInput = (data: { setTask: (task: string) => void; task: string }) => {
-  const { taskError } = useAppContext();
-
   return (
     <TextInput
       value={data.task}
       label={AddTaskTitle}
       withAsterisk
       onChange={(event) => data.setTask(event.currentTarget.value)}
-      error={taskError}
+      // error={taskError}
     />
   );
 };
@@ -90,21 +86,16 @@ const AddTaskButton = (data: {
   description?: string;
   clearInputs: () => void;
 }) => {
-  const { sendTask, taskError, setTaskError } = useAppContext();
+  const dispatch = useDispatch();
 
   return (
     <Button
       leftSection={<IoMdAddCircle size={IconSize} />}
       onClick={() => {
-        if (data.task === "") {
-          setTaskError(TaskMandatory);
-          return;
-        }
-
-        sendTask(data.task, data.description);
+        dispatch(add({ value: data.task, description: data.description }));
         data.clearInputs();
       }}
-      disabled={taskError !== undefined}
+      // disabled={taskError !== undefined}
     >
       {AddButtonLabel}
     </Button>
