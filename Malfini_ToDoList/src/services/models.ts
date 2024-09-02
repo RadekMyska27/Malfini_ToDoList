@@ -1,6 +1,6 @@
 ﻿export interface IToDoTask {
-  id: number;
+  id?: number;
   value: string;
   description?: string;
-  isDone: boolean;
+  isDone?: boolean;
 }
