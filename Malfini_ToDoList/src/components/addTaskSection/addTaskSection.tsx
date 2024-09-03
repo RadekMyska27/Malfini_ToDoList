@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { IoMdAddCircle } from "react-icons/io";
 
 import { Button, Flex, Group, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+
 import {
   AddButtonLabel,
   AddTaskTitle,
@@ -16,14 +18,7 @@ const AddTaskSection = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState<string | undefined>("");
 
-  //TODO Error handeling
   const setTaskHandle = (task: string) => {
-    if (task === "") {
-      // setTaskError(TaskMandatory);
-      return;
-    }
-
-    // setTaskError(undefined);
     setTask(task);
   };
 
@@ -57,13 +52,20 @@ const AddTaskSection = () => {
 };
 
 const TaskInput = (data: { setTask: (task: string) => void; task: string }) => {
+  const form = useForm({
+    initialValues: { taskName: "" },
+    validate: {
+      taskName: (value) =>
+        value.trim().length === 0 ? "Name is required" : null,
+    },
+  });
+
   return (
     <TextInput
       value={data.task}
       label={AddTaskTitle}
       withAsterisk
       onChange={(event) => data.setTask(event.currentTarget.value)}
-      // error={taskError}
     />
   );
 };
